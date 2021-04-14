@@ -1,3 +1,3 @@
-### `yarn install`
-### `yarn start`
-### `yarn test`
+### yarn install
+### yarn start
+### yarn test
