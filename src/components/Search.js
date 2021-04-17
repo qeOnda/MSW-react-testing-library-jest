@@ -23,7 +23,10 @@ export default function Search ({ handleSearch, handleSubmit }) {
     const classes = useStyles();
   
     return (        
-        <form onSubmit={handleSubmit}>
+        <form 
+          onSubmit={handleSubmit}
+          data-testid="form"
+        >
             <TextField 
                 id="standard-basic" 
                 label="Enter a domain" 

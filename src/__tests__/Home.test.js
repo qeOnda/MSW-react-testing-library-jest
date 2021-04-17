@@ -33,24 +33,25 @@ describe('<Home />', () => {
   })
 
   describe('mocking api call', () => {
-    test('returns ', async () => {
+    test('returns api response', async () => {
       axios.get.mockResolvedValue({
         data: [
           {
             userId: 1,
             id: 1,
-            title: "My first title"
+            title: "My title"
           },
           {
             userId: 2,
             id: 2,
-            title: "Album: sequel"
+            title: "title: sequel"
           }
         ]
       })
 
-      const title = await WhoisGetter('My first title')
+      const title = await WhoisGetter()
       expect(title).toHaveLength(2)
+      // expect(title).toContain()
     });
   })
 }) 
