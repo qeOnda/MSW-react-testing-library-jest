@@ -30,6 +30,7 @@ export default function Search ({ handleSearch, handleSubmit }) {
             <TextField 
                 id="standard-basic" 
                 label="Enter a domain" 
+                type="text"
                 onChange={handleSearch}
                 className={classes.root}  
             />
