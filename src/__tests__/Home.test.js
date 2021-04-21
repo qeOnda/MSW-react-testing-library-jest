@@ -8,10 +8,8 @@ import {
   waitFor, 
   fireEvent
 } from '@testing-library/react';
-import { Domain } from '@material-ui/icons';
-
 import { setupServer } from 'msw/node';
-import { handlers} from '../handlers'
+import { handlers} from '../mocks/handlers'
 
 
 
