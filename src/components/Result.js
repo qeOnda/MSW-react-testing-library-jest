@@ -5,7 +5,7 @@ export default function Result({ whoIs }) {
     <div>
       <ul>
         {whoIs.map(info => (
-          <li key={info.value}>{info.value}</li>
+          <li key={info.value}><strong>{info.name}</strong>: {info.value}</li>
         ))}
       </ul>            
     </div>

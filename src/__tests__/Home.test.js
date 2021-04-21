@@ -1,57 +1,35 @@
 import React from 'react';
 import Home from '../Home';
-import { WhoisGetter } from '../services/WhoisGetter'
-import '@testing-library/jest-dom'
-import axios from 'axios';
-import { render, screen, waitFor } from '@testing-library/react';
+import { WhoisGetter } from '../services/WhoisGetter';
+import '@testing-library/jest-dom';
+import { 
+  render, 
+  screen, 
+  waitFor, 
+  fireEvent
+} from '@testing-library/react';
+import { Domain } from '@material-ui/icons';
 
-// const axios = require('axios')
+import { setupServer } from 'msw/node';
+import { handlers} from '../handlers'
 
-jest.mock('axios')
- 
+
+
+
 describe('<Home />', () => {
-  describe('Home component renders', () => {
-    test('page should contain a textbox', () => {
-      render(<Home />);  
-      
-      expect(screen.getByRole('textbox')).toBeInTheDocument();
-      expect(screen.queryByText(/this is a test/)).toBeNull();
-    });
-  })
+  const server = setupServer(...handlers)
 
-  describe('Test mocks', () => {
-    test('test returns undefined by default', () => {
-      const append = jest.fn()
-  
-      let result = append("foo")
-  
-      expect(result).toBeUndefined()
-      expect(append).toHaveBeenCalled()
-      expect(append).toHaveBeenCalledTimes(1)
-      expect(append).toHaveBeenCalledWith("foo")
-    });
-  })
+  beforeAll(() => server.listen())
+  afterAll(() => server.close())
+  afterEach(() => server.resetHandlers())
 
-  describe('mocking api call', () => {
-    test('returns api response', async () => {
-      axios.get.mockResolvedValue({
-        data: [
-          {
-            userId: 1,
-            id: 1,
-            title: "My title"
-          },
-          {
-            userId: 2,
-            id: 2,
-            title: "title: sequel"
-          }
-        ]
-      })
-
-      const title = await WhoisGetter()
-      expect(title).toHaveLength(2)
-      // expect(title).toContain()
-    });
+  test('gets domain information', async () => {
+    render(<Home />)
+    const input = screen.getByRole('textbox')   
+    fireEvent.change(input, { target: { value: "example.com" }})  
+    fireEvent.submit(screen.getByTestId("form"))         
+    await waitFor(() => expect(screen.getByText(/example.com/i)).toBeInTheDocument())
+    
+    screen.debug()
   })
 }) 

@@ -31,13 +31,16 @@ export default function Home(){
             setWhoIs(lookup[0])
         } else {
             WhoisGetter(current).then(res => {                       
-                setChecker([...checker, {name: current, data: res.data}])
-                setWhoIs(res.data)
+                setChecker([...checker, {name: current, data: res}])
+                setWhoIs(res)
             }).catch(err => {          
-                console.log(err);
+                console.log(err);   
             })        
         }
     }, [current])
+
+    console.log(whoIs)
+    // console.log(current)
 
     return ( 
         <Container fixed>
